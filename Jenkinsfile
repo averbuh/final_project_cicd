@@ -14,9 +14,11 @@ pipeline {
    
     stages {
         stage('Cloning Git') {
-          steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/averbuh/Finish_project_cicd.git']]])     
-          }master
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
   
     // Building Docker images
@@ -31,6 +33,11 @@ pipeline {
         }
 
         stage('Local Tests'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
 
         stage('Clean Workspace') {
