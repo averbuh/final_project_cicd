@@ -50,30 +50,75 @@ pipeline {
          }
         }
         stage('Publish Helm Chart'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
         
         stage('Deploy to Dev'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
 
         stage('Dev tests'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
 
         stage('Cleanup dev'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
 
         stage('Deploy to staging'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
 
         stage('Staging Tests'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
 
         stage('Cleanup Staging'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
         
         stage('Go to Profuction'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
 
         stage('Deploy Production'){
+            steps{
+                script{
+                    echo "Hello!"
+                }
+            } 
         }
     }
 }
