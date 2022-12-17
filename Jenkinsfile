@@ -15,8 +15,8 @@ pipeline {
     stages {
         stage('Cloning Git') {
           steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github-ssh-key', url: 'git@github.com:averbuh/Finish_project_cicd']]])     
-          }
+              checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/averbuh/Finish_project_cicd.git']]])     
+          }master
         }
   
     // Building Docker images
@@ -43,9 +43,9 @@ pipeline {
         stage('Pushing image to ECR') {
          steps{  
              script {
-                docker.withRegistry("https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com", "ecr:eu-central-1:aws_credentials") {
-                        dockerImage.push()
-                    }
+               // docker.withRegistry("https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com", "ecr:eu-central-1:aws_credentials") {
+                  //      dockerImage.push()
+                   // }
              }
          }
         }
