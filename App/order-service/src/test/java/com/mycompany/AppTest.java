@@ -7,21 +7,33 @@ import org.junit.Test;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class CalculatorTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
+
     @Test
     public void shouldAnswerWithTrue()
     {
         assertTrue( true );
     }
     
-    @Test 
-    public void testMake(){
-        System.out.println("Test 2!")    
-    }     
-
-
+    @Test
+    void AddTwoNumbers() {
+        Calculator calc = new Calculator();
+        int result = calc.add(1,1);
+        assertEquals(2, result);
+    }
+ 
+    @Test
+    void AddNegativeNumbers() {
+        Calculator calc = new Calculator();
+        int result = calc.add(-1,-1);
+        assertEquals(-2, result);
+    }    
+ 
+    @Test
+    void AddZeroToANumber(){
+        Calculator calc = new Calculator();
+        int result = calc.add(1,0);
+        assertEquals(1, result);
+    }
 }
