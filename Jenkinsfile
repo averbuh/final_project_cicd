@@ -50,7 +50,7 @@ pipeline {
                     //sh 'docker push ${REPOSITORY_URL}:${IMAGE_TAG}'
                 
                     withDockerRegistry(url: "https://${REPOSITORY_URL}", credentialsId: "ecr:eu-central-1:aws_access") {
-                        docker.image("calculator_app:${IMAGE_TAG}").push()
+                        docker.image("calculator_app").push()
                     }
                 }
             }
