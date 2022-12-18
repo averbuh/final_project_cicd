@@ -24,8 +24,8 @@ pipeline {
             steps{
                 script {
                     sh 'docker --version'
-                    app = docker.build('calculator_app')
-                    sh 'docker run -v `pwd`/app/order-service:/src calculator_app test'
+                    app = docker.build("${REPOSITORY_URL}:${IMAGE_TAG}-${env.BUILD_NUMBER}")
+                    sh "docker run -v `pwd`/app/order-service:/src ${REPOSITORY_URL}:${IMAGE_TAG}-${env.BUILD_NUMBER} test"
                 }
 
             }
