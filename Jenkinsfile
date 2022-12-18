@@ -4,7 +4,7 @@ pipeline {
         choice(name: 'IMAGE_TAG', choices: ['1.1.0', '3.2.4', 'latest'], description: 'iMAGE VERSION')
     }    
     environment {
-        AWS_ACCOUNT_ID=credentials('aws_account_id')
+        AWS_ACCOUNT_ID=297797860062
         AWS_DEFAULT_REGION="eu-central-1" 
         IMAGE_TAG="${params.IMAGE_TAG}"
         IMAGE_REPO_NAME="calculator_app"
