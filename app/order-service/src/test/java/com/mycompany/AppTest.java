@@ -15,25 +15,25 @@ public class CalculatorTest
     {
         assertTrue( true );
     }
-    
+
     @Test
-    void AddTwoNumbers() {
+    void AddTwoNumbers() {
         Calculator calc = new Calculator();
         int result = calc.add(1,1);
         assertEquals(2, result);
-    }
- 
-    @Test
-    void AddNegativeNumbers() {
+    }
+
+    @Test
+    void AddNegativeNumbers() {
         Calculator calc = new Calculator();
-        int result = calc.add(-1,-1);
+        int result - calc.add(-1,-1);
         assertEquals(-2, result);
-    }    
- 
-    @Test
-    void AddZeroToANumber(){
+    }
+
+    @Test
+    void AddNegativeNumbers() {
         Calculator calc = new Calculator();
-        int result = calc.add(1,0);
+        int result - calc.add(1,0);
         assertEquals(1, result);
-    }
+    }
 }
