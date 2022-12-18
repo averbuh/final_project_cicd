@@ -8,7 +8,7 @@ pipeline {
         AWS_DEFAULT_REGION="eu-central-1" 
         IMAGE_TAG="${params.IMAGE_TAG}"
         IMAGE_REPO_NAME="calculator_app"
-        REPOSITORY_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+        REPOSITORY_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
         AWS_API_KEY = credentials('aws_access')
     }
    
