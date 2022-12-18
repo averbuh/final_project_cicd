@@ -26,14 +26,14 @@ public class CalculatorTest
     @Test
     void AddNegativeNumbers() {
         Calculator calc = new Calculator();
-        int result - calc.add(-1,-1);
+        int result = calc.add(-1,-1);
         assertEquals(-2, result);
     }
 
     @Test
     void AddNegativeNumbers() {
         Calculator calc = new Calculator();
-        int result - calc.add(1,0);
+        int result = calc.add(1,0);
         assertEquals(1, result);
     }
 }
