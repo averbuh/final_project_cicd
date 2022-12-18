@@ -50,9 +50,7 @@ pipeline {
         stage('Pushing image to ECR') {
          steps{  
              script {
-               // docker.withRegistry("https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com", "ecr:eu-central-1:aws_credentials") {
-                  //      dockerImage.push()
-                   // }
+                echo "Hello!" 
              }
          }
         }
