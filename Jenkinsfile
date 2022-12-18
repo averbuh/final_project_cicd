@@ -5,11 +5,11 @@ pipeline {
     }    
     environment {
         AWS_ACCOUNT_ID=""
-        AWS_DEFAULT_REGION="eu-central-1" 
-        IMAGE_TAG="${params.IMAGE_TAG}"
-        IMAGE_REPO_NAME="myapp"
-        REPOSITORY_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-        AWS_API_KEY = credentials('aws_credentials')
+ //       AWS_DEFAULT_REGION="eu-central-1" 
+  //      IMAGE_TAG="${params.IMAGE_TAG}"
+   //     IMAGE_REPO_NAME="myapp"
+    //    REPOSITORY_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+     //   AWS_API_KEY = credentials('aws_credentials')
     }
    
     stages {
