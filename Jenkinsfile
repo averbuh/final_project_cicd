@@ -4,12 +4,12 @@ pipeline {
         choice(name: 'IMAGE_TAG', choices: ['1.1.0', '3.2.4', 'latest'], description: 'iMAGE VERSION')
     }    
     environment {
-        AWS_ACCOUNT_ID=""
+        AWS_ACCOUNT_ID=credentials('aws_account_id')
         AWS_DEFAULT_REGION="eu-central-1" 
         IMAGE_TAG="${params.IMAGE_TAG}"
-        IMAGE_REPO_NAME="myapp"
-        REPOSITORY_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-        //AWS_API_KEY = credentials('aws_credentials')
+        IMAGE_REPO_NAME="calculator_app"
+        REPOSITORY_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+        AWS_API_KEY = credentials('aws_access')
     }
    
     stages {
@@ -21,15 +21,14 @@ pipeline {
   
     // Building Docker images
         stage('Build and unit tests') {
-          steps{
-            script {
-                sh 'docker --version'
-                sh 'docker build -t test-in-containers:1.0-3.8.1-openjdk-11-slim .'
-                sh 'docker run -v `pwd`/app/order-service:/src test-in-containers:1.0-3.8.1-openjdk-11-slim test'
-            }
-            cleanWs()
+            steps{
+                script {
+                    sh 'docker --version'
+                    sh 'docker build -t app_calculator .'
+                    sh 'docker run -v `pwd`/app/order-service:/src app_calculator test'
+                }
 
-          }
+            }
         }
 
 
@@ -41,20 +40,17 @@ pipeline {
             } 
         }
 
-        stage('Clean Workspace') {
-            steps {
-                cleanWs notFailBuild: true, patterns: [[pattern: '', type: 'INCLUDE']]
-            }
-        }
        
         // Uploading Docker images into AWS ECR
         stage('Pushing image to ECR') {
-         steps{  
-             script {
-                echo "Hello!" 
-             }
-         }
+            steps{  
+                docker.withRegistry("https://${REPOSITORY_URL}", "ecr:us-east-1:aws_access") {
+                    docker.image("app_calculator").push()
+                }
+            }
         }
+
+
         stage('Publish Helm Chart'){
             steps{
                 script{
@@ -62,7 +58,15 @@ pipeline {
                 }
             } 
         }
+
+
+        stage('Clean Workspace') {
+            steps {
+                cleanWs notFailBuild: true, patterns: [[pattern: '', type: 'INCLUDE']]
+            }
+        }
         
+
         stage('Deploy to Dev'){
             steps{
                 script{
@@ -70,6 +74,7 @@ pipeline {
                 }
             } 
         }
+
 
         stage('Dev tests'){
             steps{
