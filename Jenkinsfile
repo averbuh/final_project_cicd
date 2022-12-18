@@ -25,7 +25,7 @@ pipeline {
             script {
                 sh 'docker --version'
                 sh 'docker build -t test-in-containers:1.0-3.8.1-openjdk-11-slim .'
-                sh 'docker run -v `pwd`/app/order-service:/src test-in-containers:1.0-3.8.1-openjdk-11-slim test'
+                sh 'docker run -v `pwd`/test-in-containers:/src test-in-containers: 1.0-3.8.1-openjdk-11-slim test'
             }
             cleanWs()
           }
