@@ -25,8 +25,9 @@ pipeline {
         stage('Build and unit tests') {
           steps{
             script {
-              sh 'docker --version'
-              dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+             // sh 'docker --version'
+              // dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+              echo "Hello!"
             }
             cleanWs()
           }
