@@ -8,7 +8,7 @@ pipeline {
         AWS_DEFAULT_REGION="eu-central-1" 
         IMAGE_TAG="${params.IMAGE_TAG}"
         IMAGE_REPO_NAME="calculator_app"
-        REPOSITORY_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+        REPOSITORY_URL = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
         AWS_API_KEY = credentials('aws_access')
     }
    
@@ -49,7 +49,7 @@ pipeline {
                     //sh 'docker tag calculator_app:latest ${REPOSITORY_URL}:${IMAGE_TAG}'
                     //sh 'docker push ${REPOSITORY_URL}:${IMAGE_TAG}'
                 
-                    withDockerRegistry(url: "https://${REPOSITORY_URL}", credentialsId: "ecr:us-east-1:aws_access") {
+                    withDockerRegistry(url: "https://${REPOSITORY_URL}", credentialsId: "ecr:eu-central-1:aws_access") {
                         docker.image("calculator_app:${IMAGE_TAG}").push()
                     }
                 }
