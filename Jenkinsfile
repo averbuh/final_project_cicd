@@ -24,8 +24,8 @@ pipeline {
             steps{
                 script {
                     sh 'docker --version'
-                    sh 'docker build -t app_calculator .'
-                    sh 'docker run -v `pwd`/app/order-service:/src app_calculator test'
+                    sh 'docker build -t calculator_app .'
+                    sh 'docker run -v `pwd`/app/order-service:/src calculator_app test'
                 }
 
             }
@@ -44,11 +44,13 @@ pipeline {
         // Uploading Docker images into AWS ECR
         stage('Pushing image to ECR') {
             steps{  
-                docker.withRegistry("https://${REPOSITORY_URL}", "ecr:us-east-1:aws_access") {
-                    docker.image("app_calculator").push()
+                script{
+                    sh 'docker tag calculator_app:latest ${REPOSITORY_URL}:${IMAGE_TAG}'
+                    sh 'docker push ${REPOSITORY_URL}:${IMAGE_TAG}'
                 }
             }
         }
+        
 
 
         stage('Publish Helm Chart'){
