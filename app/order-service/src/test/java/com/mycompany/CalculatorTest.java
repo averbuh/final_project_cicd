@@ -31,7 +31,7 @@ public class CalculatorTest
     }
 
     @Test
-    void AddNegativeNumbers() {
+    void AddZeroToANumber() {
         Calculator calc = new Calculator();
         int result = calc.add(1,0);
         assertEquals(1, result);
