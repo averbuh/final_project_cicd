@@ -48,7 +48,7 @@ pipeline {
                     sh 'docker tag calculator_app:latest ${REPOSITORY_URL}:${IMAGE_TAG}'
                     //sh 'docker push ${REPOSITORY_URL}:${IMAGE_TAG}'
                 }
-                docker.withRegistry("https://${REPOSITORY_URL}", "ecr:us-east-1:aws_access") {
+                withDockerRegistry(url: "https://${REPOSITORY_URL}", credentialsId: "ecr:us-east-1:aws_access") {
                     docker.image("calculator_app").push()
                 }
             }
