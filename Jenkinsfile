@@ -24,7 +24,7 @@ pipeline {
             steps{
                 script {
                     sh 'docker --version'
-                    sh 'docker build -t calculator_app .'
+                    app = docker.build('calculator_app')
                     sh 'docker run -v `pwd`/app/order-service:/src calculator_app test'
                 }
 
@@ -49,8 +49,9 @@ pipeline {
                     //sh 'docker tag calculator_app:latest ${REPOSITORY_URL}:${IMAGE_TAG}'
                     //sh 'docker push ${REPOSITORY_URL}:${IMAGE_TAG}'
                 
-                    withDockerRegistry(url: "https://${REPOSITORY_URL}", credentialsId: "ecr:eu-central-1:aws_access") {
-                        docker.image("calculator_app").push()
+                    docker.withRegistry(url: "https://${REPOSITORY_URL}", credentialsId: "ecr:eu-central-1:aws_access") {
+                        app.push('${IMAGE_TAG}')
+                        app.push('latest')
                     }
                 }
             }
