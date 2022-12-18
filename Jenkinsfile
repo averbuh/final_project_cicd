@@ -45,13 +45,14 @@ pipeline {
         stage('Pushing image to ECR') {
             steps{  
                 script{
-                    sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 297797860062.dkr.ecr.eu-central-1.amazonaws.com'
-                    sh 'docker tag calculator_app:latest ${REPOSITORY_URL}:${IMAGE_TAG}'
-                    sh 'docker push ${REPOSITORY_URL}:${IMAGE_TAG}'
+                   // sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 297797860062.dkr.ecr.eu-central-1.amazonaws.com'
+                    //sh 'docker tag calculator_app:latest ${REPOSITORY_URL}:${IMAGE_TAG}'
+                    //sh 'docker push ${REPOSITORY_URL}:${IMAGE_TAG}'
+                
+                    withDockerRegistry(url: "https://${REPOSITORY_URL}", credentialsId: "ecr:us-east-1:aws_access") {
+                        docker.image("calculator_app:${IMAGE_TAG}").push()
+                    }
                 }
-               // withDockerRegistry(url: "https://${REPOSITORY_URL}", credentialsId: "ecr:us-east-1:aws_access") {
-                 //   docker.image("calculator_app").push()
-                //}
             }
         }
         
