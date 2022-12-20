@@ -26,10 +26,13 @@ pipeline {
                     sh 'docker --version'
                     app = docker.build("${REPOSITORY_URL}:${IMAGE_TAG}-${env.BUILD_NUMBER}")
                     sh "docker run -v `pwd`/app/order-service:/src ${REPOSITORY_URL}:${IMAGE_TAG}-${env.BUILD_NUMBER} test"
+                }
+            }
+            post {
+                always {
                     junit '**/target/surefire-reports/*.xml'
                 }
-
-            }
+            } 
         }
 
 
