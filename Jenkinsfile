@@ -28,12 +28,6 @@ pipeline {
                     sh "docker run -v `pwd`/app/order-service:/src ${REPOSITORY_URL}:${IMAGE_TAG}-${env.BUILD_NUMBER} test"
                 }
             }
-            post {
-                always {
-                    junit skipPublishingChecks: true, testResults: '**/target/surefire-reports/*.xml'
-
-                }
-            } 
         }
 
 
