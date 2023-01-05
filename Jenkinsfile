@@ -23,7 +23,7 @@ pipeline {
         stage('Build and Tests') {
             steps{
                 script {
-                    
+                    env.PATH = "${tool 'maven'}/bin:${env.PATH}"
                     sh 'mvn -f `pwd`/app/order-service/pom.xml clean package'
                 }
             }
