@@ -23,6 +23,7 @@ pipeline {
         stage('Build and Tests') {
             steps{
                 script {
+                    cleanWs notFailBuild: true, patterns: [[pattern: '', type: 'INCLUDE']]
                     env.PATH = "${tool 'maven'}/bin:${env.PATH}"
                     sh 'mvn -f `pwd`/app/order-service/pom.xml package'
                 }
