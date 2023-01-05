@@ -24,7 +24,7 @@ pipeline {
             steps{
                 script {
                     env.PATH = "${tool 'maven'}/bin:${env.PATH}"
-                    sh 'mvn -f `pwd`/app/order-service/pom.xml clean package'
+                    sh 'mvn -f `pwd`/app/order-service/pom.xml package'
                 }
             }
             post {
