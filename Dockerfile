@@ -1,4 +1,5 @@
-FROM maven:3.8.1-openjdk-11-slim
-WORKDIR /src
-ENTRYPOINT ["mvn", "clean"]
+FROM openjdk:11
+LABEL version="0.0.1"
+COPY app/order-service/target/order-service-1.0-SNAPSHOT.jar /home/app.jar
+ENTRYPOINT ["java", "-jar","/app.jar"]
 

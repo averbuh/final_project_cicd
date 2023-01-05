@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}-configmap
-data:
-  myvalue: "Hello World"  
-  drink: {{ .Values.favourite.drink | quote }}
-  food: {{ .Values.favourite.food | upper | quote }}

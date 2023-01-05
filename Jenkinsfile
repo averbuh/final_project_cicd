@@ -20,12 +20,11 @@ pipeline {
         }
   
     // Building Docker images
-        stage('Build and unit tests') {
+        stage('Build and Tests') {
             steps{
                 script {
-                    sh 'docker --version'
-                    app = docker.build("${REPOSITORY_URL}:${IMAGE_TAG}-${env.BUILD_NUMBER}")
-                    sh "docker run -v `pwd`/app/order-service:/src ${REPOSITORY_URL}:${IMAGE_TAG}-${env.BUILD_NUMBER} test"
+                    
+                    sh 'mvn -f `pwd`/app/order-service/pom.xml clean package'
                 }
             }
             post {
@@ -36,12 +35,13 @@ pipeline {
         }
 
 
-        stage('Local Tests'){
+
+        stage('Build Docker Image'){
             steps{
                 script{
-                    echo "Hello!"
-                }
-            } 
+                    sh 'docker --version'
+                    app = docker.build("${REPOSITORY_URL}:${IMAGE_TAG}-${env.BUILD_NUMBER}")                }
+            }
         }
 
        
@@ -49,8 +49,6 @@ pipeline {
         stage('Pushing image to ECR') {
             steps{  
                 script{
-                    sh 'docker logout'
-                
                     withDockerRegistry(url: "https://${REPOSITORY_URL}", credentialsId: "ecr:eu-central-1:aws_access") {
                         app.push("${IMAGE_TAG}-${env.BUILD_NUMBER}")
                     }
